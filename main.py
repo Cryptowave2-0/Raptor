@@ -28,7 +28,7 @@ class Bot(commands.Bot):
             try:
                 ServerData().add(ServerLink(guild.id))
             except Exception as e:
-                LogManager.log(f"[on_ready] ServerData().add() ERROR: {type(e).__name__}: {e}",LogTypes.INTERNAL_ERROR)
+                LogManager.log(f"[on_ready] ServerData().add() ERROR: {type(e).__name__}: {e}",LogTypes.WARNING)
 
         await self.tree.sync()
             
