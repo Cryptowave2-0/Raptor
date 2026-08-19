@@ -2,7 +2,6 @@
 SQLite storage for links between GitHub repositories and Discord threads.
 """
 
-from asyncio.windows_events import NULL
 import sqlite3
 from dataclasses import dataclass
 from pathlib import Path

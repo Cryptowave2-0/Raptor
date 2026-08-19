@@ -30,8 +30,8 @@ class DiscordWebhookManager:
 
     async def get_webhook(self, server_id: int) -> discord.Webhook:
         """Returns the unique webhook for the Forum, creating it if it doesn't exist yet."""
-        if self._webhook is not None:
-            return self._webhook
+        # if self._webhook is not None:
+        #     return self._webhook
         
         forum_id = self.data.get(server_id).forum_id
         
@@ -47,8 +47,8 @@ class DiscordWebhookManager:
 
         webhooks = await forum.webhooks()
         existing = discord.utils.get(webhooks, name=self.WEBHOOK_NAME)
-        self._webhook = existing or await forum.create_webhook(name=self.WEBHOOK_NAME)
-        return self._webhook
+        _webhook = existing or await forum.create_webhook(name=self.WEBHOOK_NAME)
+        return _webhook
 
     async def create_post(
         self, *, thread_title: str, embed: discord.Embed, username: str, server_id: int, avatar_url: Optional[str]

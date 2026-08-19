@@ -298,7 +298,7 @@ class GitHubCog(commands.Cog):
         owner, repo_name = repo.split("/", 1)
         repo_full_name = f"{owner}/{repo_name}"
         message = await ctx.send(f"🔄 Refreshing README for `{repo_full_name}`...")
-        link = self.data.find_by_repo_any_author(repo_full_name)
+        link = self.data.find_by_repo_any_author(repo_full_name, ctx.guild.id)
 
 
         if link is None:
@@ -318,9 +318,10 @@ class GitHubCog(commands.Cog):
             await self._update_status(ctx.channel, message, f"❌ README not found for `{repo_full_name}`.")
             return
 
+        avatar_url = await GitHubAPI.fetch_avatar_with_retry(owner)
 
         try:
-            embed = self.discord_webhook.build_readme_embed(readme["text"], readme["base_raw_url"], repo_full_name)
+            embed = self.discord_webhook.build_readme_embed(readme["text"], readme["base_raw_url"], repo_full_name, avatar_url)
 
         except Exception as e:
             LogManager.log(f"[GITHUB REFRESH] build_readme_embed ERROR: {type(e).__name__}: {e}",LogTypes.INTERNAL_ERROR)
