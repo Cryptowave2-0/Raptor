@@ -14,11 +14,11 @@ DB_PATH.parent.mkdir(exist_ok=True)
 @dataclass
 class ServerLink:
     server_id: int
-    forum_id: int
-    staff_role_id: int
-    update_channel_id: int
-    welcome_channel_id: int
-    goodbye_channel_id: int
+    forum_id: int = None 
+    staff_role_id: int = None 
+    update_channel_id: int = None 
+    welcome_channel_id: int = None 
+    goodbye_channel_id: int = None 
 
 ServerLinkField = Literal[
             "forum_id",
@@ -57,11 +57,11 @@ class ServerData:
             """
             CREATE TABLE IF NOT EXISTS server_links (
                 server_id INTEGER PRIMARY KEY,
-                forum_id INTEGER NOT NULL,
-                staff_role_id INTEGER NOT NULL,
-                update_channel_id INTEGER NOT NULL,
-                welcome_channel_id INTEGER NOT NULL,
-                goodbye_channel_id INTEGER NOT NULL
+                forum_id INTEGER,
+                staff_role_id INTEGER,
+                update_channel_id INTEGER,
+                welcome_channel_id INTEGER,
+                goodbye_channel_id INTEGER
             )
             """
         )
@@ -117,8 +117,8 @@ class ServerData:
         return [self._row_to_link(r) for r in rows]
 
     @staticmethod
-    def _row_to_link(row: sqlite3.Row) -> GitHubLink:
-        return GitHubLink(**dict(row))
+    def _row_to_link(row: sqlite3.Row) -> ServerLink:
+        return ServerLink(**dict(row))
 
     def close(self) -> None:
         self._conn.close()

@@ -76,9 +76,9 @@ class DiscordWebhookManager:
             wait=True,
         )
 
-    async def edit_starter_message(self, *, thread_id: int, message_id: int, embed: discord.Embed) -> None:
+    async def edit_starter_message(self, *, thread_id: int, message_id: int, embed: discord.Embed, server_id: int) -> None:
         """Edits the starter message of a thread (used for the live README)."""
-        webhook = await self.get_webhook()
+        webhook = await self.get_webhook(server_id)
         await webhook.edit_message(message_id, embed=embed, thread=discord.Object(id=thread_id))
 
     async def delete_thread(self, thread_id: int) -> None:

@@ -8,6 +8,7 @@ load_dotenv()
 
 from Utils.Log import LogManager, LogTypes
 from Utils.Cog import CogManager
+from Utils.Data import ServerData, ServerLink
 
 class Bot(commands.Bot):
     def __init__(self, command_prefix, intents, TOKEN, **options):
@@ -22,6 +23,13 @@ class Bot(commands.Bot):
 
     async def on_ready(self):
         LogManager.log(f"Bot is connected as {self.user.display_name}", LogTypes.EVENT)
+
+        for guild in self.guilds:
+            try:
+                ServerData().add(ServerLink(guild.id))
+            except Exception as e:
+                LogManager.log(f"[on_ready] ServerData().add() ERROR: {type(e).__name__}: {e}",LogTypes.INTERNAL_ERROR)
+
         await self.tree.sync()
             
 

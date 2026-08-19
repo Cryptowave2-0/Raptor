@@ -329,7 +329,7 @@ class GitHubCog(commands.Cog):
             return
 
         try:
-            await self.discord_webhook.edit_starter_message(thread_id=link.thread_id, message_id=link.starter_message_id, embed=embed)
+            await self.discord_webhook.edit_starter_message(thread_id=link.thread_id, message_id=link.starter_message_id, embed=embed, server_id=ctx.guild.id)
 
         except Exception as e:
             LogManager.log(f"[GITHUB REFRESH] edit_starter_message ERROR: {type(e).__name__}: {e}",LogTypes.INTERNAL_ERROR)
