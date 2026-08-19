@@ -12,8 +12,15 @@ Raptor is a multi featured discord bot used for a small community of Spaceflight
 
 ### Prerequises <a name="iprerequise"></a>
 
-### other
+- [python 3.8](https://www.python.org/downloads/release/python-380/)
+
+### Method
+
+1. `pip install colorama dotenv discord`
+2. set your [.env](.env) file:
 
 ## Features & Commands
 
-### Github Tracker Thread
+### `Github`
+
+- `register` : A simple command as to register your repository into the thread of a forum channel
